@@ -12,8 +12,10 @@ import (
 
 type Handler interface {
 	ListCharacters(ctx *gin.Context)
-	FindCharacterById(ctx *gin.Context)
+	FindCharacter(ctx *gin.Context)
 	CreateCharacter(ctx *gin.Context)
+	UpdateCharacter(ctx *gin.Context)
+	DeleteCharacter(ctx *gin.Context)
 }
 
 type handler struct {
@@ -39,7 +41,7 @@ func (h *handler) ListCharacters(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
-func (h *handler) FindCharacterById(ctx *gin.Context) {
+func (h *handler) FindCharacter(ctx *gin.Context) {
 	paramId := ctx.Param("id")
 	id, err := strconv.Atoi(paramId)
 	if err != nil {
@@ -62,17 +64,58 @@ func (h *handler) FindCharacterById(ctx *gin.Context) {
 
 func (h *handler) CreateCharacter(ctx *gin.Context) {
 	character := entity.Character{}
-	err := ctx.ShouldBindJSON(&character)
+	if err := ctx.ShouldBindJSON(&character); err != nil {
+		panic(err)
+	}
+
+	characterRes, err := h.characterInteractor.CreateCharacter(character)
+	if err != nil {
+		panic(err)
+	}
+	response := response.WebResponse{
+		Code: http.StatusOK,
+		Status: "ok",
+		Data: characterRes,
+	}
+	ctx.Header("Content-Type", "application/json")
+	ctx.JSON(http.StatusOK, response)
+}
+
+func (h *handler) UpdateCharacter(ctx *gin.Context) {
+	paramId := ctx.Param("id")
+	id, err := strconv.Atoi(paramId)
 	if err != nil {
 		panic(err)
 	}
 
-	h.characterInteractor.CreateCharacter(character)
-	response := response.WebResponse{
-		Code: http.StatusOK,
+	character := entity.Character{}
+	if err := ctx.ShouldBindJSON(&character); err != nil {
+		panic(err)
+	}
+
+	characterRes, err := h.characterInteractor.UpdateCharacter(character, id)
+	if err != nil {
+		panic(err)
+	}
+
+	webResponse := response.WebResponse{
+		Code:   http.StatusOK,
 		Status: "ok",
-		Data: nil,
+		Data:   characterRes,
 	}
 	ctx.Header("Content-Type", "application/json")
-	ctx.JSON(http.StatusOK, response)
+	ctx.JSON(http.StatusOK, webResponse)
+}
+
+func (h *handler) DeleteCharacter(ctx *gin.Context) {
+	paramId := ctx.Param("id")
+	id, _ := strconv.Atoi(paramId)
+
+	err := h.characterInteractor.DeleteById(id)
+	if err != nil {
+		panic(err)
+	}
+
+	ctx.Header("Content-Type", "application/json")
+	ctx.Status(http.StatusNoContent)
 }

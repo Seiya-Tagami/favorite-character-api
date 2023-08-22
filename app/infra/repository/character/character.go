@@ -43,6 +43,18 @@ func (r *Repository) SelectById(character *entity.Character, id int) error {
 	return nil
 }
 
+// 条件付き更新
+func (r *Repository) UpdateById(character *entity.Character, id int) error {
+	result := r.db.Model(character).Where("id = ?", id).Updates(character)
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected < 1 {
+		return fmt.Errorf("object does not exist")
+	}
+	return nil
+}
+
 // 条件付き削除
 func (r *Repository) DeleteById(id int) error {
 	result := r.db.Where("id= ? ", id).Delete(&entity.Character{})

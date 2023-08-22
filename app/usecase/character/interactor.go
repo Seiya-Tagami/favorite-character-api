@@ -10,6 +10,7 @@ type Interactor interface {
 	ListCharacters() ([]response.CharacterResponse, error)
 	FindCharacterById(id int) (response.CharacterResponse, error)
 	CreateCharacter(character entity.Character) (response.CharacterResponse, error)
+	UpdateCharacter(character entity.Character, id int) (response.CharacterResponse, error)
 	DeleteById(id int) error
 }
 
@@ -58,7 +59,7 @@ func (i *interactor) FindCharacterById(id int) (response.CharacterResponse, erro
 	characterRes := response.CharacterResponse{
 		ID:        character.ID,
 		Name:      character.Name,
-		Belonging: character.Name,
+		Belonging: character.Belonging,
 		CreatedAt: character.CreatedAt,
 		UpdatedAt: character.UpdatedAt,
 	}
@@ -75,7 +76,23 @@ func (i *interactor) CreateCharacter(character entity.Character) (response.Chara
 	characterRes := response.CharacterResponse{
 		ID:        character.ID,
 		Name:      character.Name,
-		Belonging: character.Name,
+		Belonging: character.Belonging,
+		CreatedAt: character.CreatedAt,
+		UpdatedAt: character.UpdatedAt,
+	}
+
+	return characterRes, nil
+}
+
+func (i *interactor) UpdateCharacter(character entity.Character, id int) (response.CharacterResponse, error) {
+	if err := i.characterRepository.UpdateById(&character, id); err != nil {
+		return response.CharacterResponse{}, err
+	}
+
+	characterRes := response.CharacterResponse{
+		ID:        id,
+		Name:      character.Name,
+		Belonging: character.Belonging,
 		CreatedAt: character.CreatedAt,
 		UpdatedAt: character.UpdatedAt,
 	}
