@@ -4,8 +4,8 @@ import (
 	"github.com/Seiya-Tagami/favorite-character-api/db"
 	"github.com/Seiya-Tagami/favorite-character-api/handler/character"
 	"github.com/Seiya-Tagami/favorite-character-api/handler/health"
-	"github.com/Seiya-Tagami/favorite-character-api/handler/router"
 	characterRepository "github.com/Seiya-Tagami/favorite-character-api/infra/repository/character"
+	"github.com/Seiya-Tagami/favorite-character-api/router"
 	characterUsecase "github.com/Seiya-Tagami/favorite-character-api/usecase/character"
 )
 
