@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	dbConn := db.NewDB()
+	dbConn := db.New()
 	defer fmt.Println("Successfully Migrated")
 	defer db.Close(dbConn)
 	dbConn.AutoMigrate(&entity.Character{})

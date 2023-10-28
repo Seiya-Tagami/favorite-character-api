@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	db := db.NewDB()
+	db := db.New()
 	characterRepository := characterRepository.New(db)
 	characterUsecase := characterUsecase.New(characterRepository)
 	characterHandler := character.New(characterUsecase)
