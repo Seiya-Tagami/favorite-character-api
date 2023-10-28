@@ -11,11 +11,13 @@ func New(healthHandler health.HealthHandler, characterHandler character.Handler)
 	router.GET("/health", healthHandler.HealthCheck)
 
 	charactersRouter := router.Group("/characters")
-	charactersRouter.GET("/", characterHandler.ListCharacters)
-	charactersRouter.GET("/:id", characterHandler.FindCharacter)
-	charactersRouter.POST("/", characterHandler.CreateCharacter)
-	charactersRouter.DELETE("/:id", characterHandler.DeleteCharacter)
-	charactersRouter.PATCH("/:id", characterHandler.UpdateCharacter)
+	{
+		charactersRouter.GET("/", characterHandler.ListCharacters)
+		charactersRouter.GET("/:id", characterHandler.FindCharacter)
+		charactersRouter.POST("/", characterHandler.CreateCharacter)
+		charactersRouter.DELETE("/:id", characterHandler.DeleteCharacter)
+		charactersRouter.PATCH("/:id", characterHandler.UpdateCharacter)
+	}
 
 	return router
 }

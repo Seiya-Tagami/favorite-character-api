@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Seiya-Tagami/favorite-character-api/data/response"
 	"github.com/Seiya-Tagami/favorite-character-api/domain/entity"
 	"github.com/Seiya-Tagami/favorite-character-api/usecase/character"
 	"github.com/gin-gonic/gin"
@@ -27,18 +26,14 @@ func New(characterInteractor character.Interactor) Handler {
 }
 
 func (h *handler) ListCharacters(ctx *gin.Context) {
-	characters, err := h.characterInteractor.ListCharacters()
+	foundCharacters, err := h.characterInteractor.ListCharacters()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	webResponse := response.WebResponse{
-		Code:   http.StatusOK,
-		Status: "ok",
-		Data:   characters,
-	}
-	ctx.Header("Content-Type", "application/json")
-	ctx.JSON(http.StatusOK, webResponse)
+	charactersRes := ToListResponse(&foundCharacters)
+
+	ctx.JSON(http.StatusOK, charactersRes)
 }
 
 func (h *handler) FindCharacter(ctx *gin.Context) {
@@ -48,18 +43,13 @@ func (h *handler) FindCharacter(ctx *gin.Context) {
 		panic(err)
 	}
 
-	character, err := h.characterInteractor.FindCharacterById(id)
+	foundCharacter, err := h.characterInteractor.FindCharacterById(id)
 	if err != nil {
-		panic(err)
+		ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	webResponse := response.WebResponse{
-		Code:   http.StatusOK,
-		Status: "ok",
-		Data:   character,
-	}
-	ctx.Header("Content-Type", "application/json")
-	ctx.JSON(http.StatusOK, webResponse)
+	characterRes := ToResponse(&foundCharacter)
+	ctx.JSON(http.StatusOK, characterRes)
 }
 
 func (h *handler) CreateCharacter(ctx *gin.Context) {
@@ -68,17 +58,13 @@ func (h *handler) CreateCharacter(ctx *gin.Context) {
 		panic(err)
 	}
 
-	characterRes, err := h.characterInteractor.CreateCharacter(character)
+	createdCharacter, err := h.characterInteractor.CreateCharacter(character)
 	if err != nil {
-		panic(err)
+		ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
-	response := response.WebResponse{
-		Code: http.StatusOK,
-		Status: "ok",
-		Data: characterRes,
-	}
-	ctx.Header("Content-Type", "application/json")
-	ctx.JSON(http.StatusOK, response)
+
+	characterRes := ToResponse(&createdCharacter)
+	ctx.JSON(http.StatusOK, characterRes)
 }
 
 func (h *handler) UpdateCharacter(ctx *gin.Context) {
@@ -93,18 +79,13 @@ func (h *handler) UpdateCharacter(ctx *gin.Context) {
 		panic(err)
 	}
 
-	characterRes, err := h.characterInteractor.UpdateCharacter(character, id)
+	updatedCharacter, err := h.characterInteractor.UpdateCharacter(character, id)
 	if err != nil {
-		panic(err)
+		ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	webResponse := response.WebResponse{
-		Code:   http.StatusOK,
-		Status: "ok",
-		Data:   characterRes,
-	}
-	ctx.Header("Content-Type", "application/json")
-	ctx.JSON(http.StatusOK, webResponse)
+	characterRes := ToResponse(&updatedCharacter)
+	ctx.JSON(http.StatusOK, characterRes)
 }
 
 func (h *handler) DeleteCharacter(ctx *gin.Context) {
@@ -113,9 +94,8 @@ func (h *handler) DeleteCharacter(ctx *gin.Context) {
 
 	err := h.characterInteractor.DeleteById(id)
 	if err != nil {
-		panic(err)
+		ctx.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	ctx.Header("Content-Type", "application/json")
 	ctx.Status(http.StatusNoContent)
 }
