@@ -10,6 +10,6 @@ import (
 func main() {
 	dbConn := db.NewDB()
 	defer fmt.Println("Successfully Migrated")
-	defer db.CloseDB(dbConn)
+	defer db.Close(dbConn)
 	dbConn.AutoMigrate(&entity.Character{})
 }
