@@ -58,6 +58,10 @@ func (h *handler) CreateCharacter(ctx *gin.Context) {
 		panic(err)
 	}
 
+	if err := character.Validate(); err != nil {
+		panic(err)
+	}
+
 	createdCharacter, err := h.characterInteractor.CreateCharacter(character)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, err.Error())
@@ -76,6 +80,10 @@ func (h *handler) UpdateCharacter(ctx *gin.Context) {
 
 	character := entity.Character{}
 	if err := ctx.ShouldBindJSON(&character); err != nil {
+		panic(err)
+	}
+
+	if err := character.Validate(); err != nil {
 		panic(err)
 	}
 
