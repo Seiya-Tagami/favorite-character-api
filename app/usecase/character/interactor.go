@@ -1,8 +1,8 @@
 package character
 
 import (
-	"github.com/Seiya-Tagami/favorite-character-api/domain/entity"
-	characterRepository "github.com/Seiya-Tagami/favorite-character-api/domain/repository/character"
+	"github.com/Seiya-Tagami/favorite-character-management-api/domain/entity"
+	characterRepository "github.com/Seiya-Tagami/favorite-character-management-api/domain/repository/character"
 )
 
 type Interactor interface {

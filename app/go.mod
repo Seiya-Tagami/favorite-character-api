@@ -1,4 +1,4 @@
-module github.com/Seiya-Tagami/favorite-character-api
+module github.com/Seiya-Tagami/favorite-character-management-api
 
 go 1.20
 

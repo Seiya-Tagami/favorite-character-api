@@ -3,8 +3,8 @@ package character
 import (
 	"fmt"
 
-	"github.com/Seiya-Tagami/favorite-character-api/domain/entity"
-	"github.com/Seiya-Tagami/favorite-character-api/domain/repository/character"
+	"github.com/Seiya-Tagami/favorite-character-management-api/domain/entity"
+	"github.com/Seiya-Tagami/favorite-character-management-api/domain/repository/character"
 	"gorm.io/gorm"
 )
 

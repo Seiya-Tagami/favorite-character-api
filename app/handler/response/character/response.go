@@ -3,7 +3,7 @@ package character
 import (
 	"time"
 
-	"github.com/Seiya-Tagami/favorite-character-api/domain/entity"
+	"github.com/Seiya-Tagami/favorite-character-management-api/domain/entity"
 )
 
 type Response struct {

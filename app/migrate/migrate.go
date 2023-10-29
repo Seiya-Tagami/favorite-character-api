@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/Seiya-Tagami/favorite-character-api/db"
-	"github.com/Seiya-Tagami/favorite-character-api/domain/entity"
+	"github.com/Seiya-Tagami/favorite-character-management-api/db"
+	"github.com/Seiya-Tagami/favorite-character-management-api/domain/entity"
 )
 
 func main() {

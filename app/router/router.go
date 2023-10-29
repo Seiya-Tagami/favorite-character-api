@@ -3,8 +3,8 @@ package router
 import (
 	"time"
 
-	"github.com/Seiya-Tagami/favorite-character-api/handler/character"
-	"github.com/Seiya-Tagami/favorite-character-api/handler/health"
+	"github.com/Seiya-Tagami/favorite-character-management-api/handler/character"
+	"github.com/Seiya-Tagami/favorite-character-management-api/handler/health"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )

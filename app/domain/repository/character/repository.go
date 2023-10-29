@@ -1,6 +1,6 @@
 package character
 
-import "github.com/Seiya-Tagami/favorite-character-api/domain/entity"
+import "github.com/Seiya-Tagami/favorite-character-management-api/domain/entity"
 
 type Repository interface {
 	Insert(character *entity.Character) error

@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Seiya-Tagami/favorite-character-api/domain/entity"
-	rc "github.com/Seiya-Tagami/favorite-character-api/handler/response/character"
-	re "github.com/Seiya-Tagami/favorite-character-api/handler/response/errors"
-	"github.com/Seiya-Tagami/favorite-character-api/usecase/character"
+	"github.com/Seiya-Tagami/favorite-character-management-api/domain/entity"
+	rc "github.com/Seiya-Tagami/favorite-character-management-api/handler/response/character"
+	re "github.com/Seiya-Tagami/favorite-character-management-api/handler/response/errors"
+	"github.com/Seiya-Tagami/favorite-character-management-api/usecase/character"
 	"github.com/gin-gonic/gin"
 )
 

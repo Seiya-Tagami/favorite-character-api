@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api:
-    container_name: favorite-character-api
+    container_name: favorite-character-management-api
     tty: true
     build:
       context: .
@@ -16,7 +16,7 @@ services:
     env_file: .env
     
   db:
-    container_name: favorite-character-db
+    container_name: favorite-character-management-db
     build: 
       context: .
       dockerfile: docker/db/Dockerfile

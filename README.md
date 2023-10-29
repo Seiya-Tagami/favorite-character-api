@@ -1,4 +1,4 @@
-# favorite-character-api
+# favorite-character-management-api
 
 この API は、いわゆるアニメの”推し”を簡易的に保存するための API です。キャラクターの名前と属するアニメを保存できます。
 
