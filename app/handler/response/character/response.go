@@ -1,11 +1,12 @@
 package character
 
 import (
-	"github.com/Seiya-Tagami/favorite-character-api/domain/entity"
 	"time"
+
+	"github.com/Seiya-Tagami/favorite-character-api/domain/entity"
 )
 
-type response struct {
+type Response struct {
 	ID        int       `json:"id"`
 	Name      string    `json:"name"`
 	Belonging string    `json:"belonging"`
@@ -13,8 +14,8 @@ type response struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-func ToResponse(character *entity.Character) response {
-	return response{
+func ToResponse(character *entity.Character) Response {
+	return Response{
 		ID:        character.ID,
 		Name:      character.Name,
 		Belonging: character.Belonging,
@@ -23,8 +24,8 @@ func ToResponse(character *entity.Character) response {
 	}
 }
 
-func ToListResponse(characters *[]entity.Character) []response {
-	listResponse := []response{}
+func ToListResponse(characters *[]entity.Character) []Response {
+	var listResponse []Response
 	for _, character := range *characters {
 		response := ToResponse(&character)
 		listResponse = append(listResponse, response)
