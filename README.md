@@ -1,4 +1,4 @@
-# 推しキャラ保存 API
+# favorite-character-api
 
 この API は、いわゆるアニメの”推し”を簡易的に保存するための API です。キャラクターの名前と属するアニメを保存できます。
 
@@ -57,7 +57,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"後藤ひとり","
 
 ### 推しキャラの更新
 
-- **URI**: `/characters`
+- **URI**: `/characters/:id`
 - **method**: PATCH
 - **body**:
   - `name` (文字列): キャラクターの名前。
@@ -65,7 +65,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"後藤ひとり","
 - **リクエストの例**:
 
 ```sh
-curl -X PATCH -H "Content-Type: application/json" -d '{"name":"山田りょう","belonging":"ぼっちざろっく"}' http://localhost:8080/characters
+curl -X PATCH -H "Content-Type: application/json" -d '{"name":"山田りょう","belonging":"ぼっちざろっく"}' http://localhost:8080/characters/1
 
 ```
 
